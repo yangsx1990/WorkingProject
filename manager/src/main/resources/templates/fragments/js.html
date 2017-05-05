@@ -1,0 +1,81 @@
+<div th:fragment="js">
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+
+<script th:src="@{/assets/js/jquery-2.0.3.min.js}"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>
+<![endif]-->
+
+<!--[if !IE]> -->
+
+<!--<script type="text/javascript">-->
+<!--window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");-->
+<!--</script>-->
+
+<!-- <![endif]-->
+
+<!--[if IE]><![endif]-->
+<script type="text/javascript" th:src="@{/assets/js/jquery-1.10.2.min.js}">
+
+</script>
+
+
+<script type="text/javascript" th:src="@{/assets/js/jquery.mobile.custom.min.js}">
+
+</script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/typeahead-bs2.min.js}"></script>
+
+<!-- ace scripts -->
+
+<script th:src="@{/assets/js/ace-elements.min.js}"></script>
+<script th:src="@{/assets/js/ace.min.js}"></script>
+
+<script type="text/javascript">
+     //左侧菜单箭头样式
+    $(function(){
+        $(".nav-list a").each(function () {
+            var href = $(this).attr('href');
+            if(window.location.pathname.indexOf(href)!=-1){
+                $(this).parent('li').attr("class","active");
+                return false;
+            }
+        })
+    });
+   
+//    $.ajax({
+//		type:'GET',
+//		url:'/role',
+//		processData : false,
+//        contentType : false,
+//		success:function(data){
+//			if(data.id==null){
+//				location.href="/index";
+//			}else{
+//				if(!data.userPermit){
+//					$('#users').hide();
+//				}
+//				if(!data.orderPermit){
+//					$('#orders').hide();
+//				}
+//				if(!data.operationPermit){
+//					$('#operations').hide();
+//				}
+//			}
+//		},
+//		error:function(err){
+//			console.log(err);
+//		}
+//	});
+</script>
+
+<!--<script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312' th:inline="javascript"></script>-->
+
+<!--</div>-->
+
+</div>

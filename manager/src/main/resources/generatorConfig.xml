@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration 
+	PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<properties resource="init.properties" />
+
+	<classPathEntry location="${driverClassPath}" />
+	<context id="mysql" targetRuntime="MyBatis3Simple"
+		defaultModelType="flat">
+		<property name="enabledExample" value="TRUE" />
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+		<property name="javaFileEncoding" value="utf-8" />
+		<!--<property name="mybatis.generator.overwrite" value="true"/> -->
+
+		<plugin type="${mapper.plugin}">
+			<property name="mappers" value="${mapper.Mapper}" />
+		</plugin>
+
+
+		<!-- plugin type="com.lambor.plugin.mybatis.expansion.MysqlPaginationPlugin" 
+			/ -->
+		<!--<commentGenerator type="org.mybatis.generator.internal.HairyCommentGenerator"> -->
+		<!--<property name="javaFileEncoding" value="UTF-8"/> -->
+		<!--<property name="suppressDate" value="true"/> -->
+		<!--&lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt; -->
+		<!--<property name="suppressAllComments" value="false"/> -->
+		<!--</commentGenerator> -->
+		<!-- DB connector -->
+		<jdbcConnection driverClass="${dirverClass}"
+			connectionURL="${jdbc_url}" userId="${jdbc_user}" password="${jdbc_pw}" />
+		<!--<javaTypeResolver> -->
+		<!--<property name="forceBigDecimals" value="true"/> -->
+		<!--</javaTypeResolver> -->
+		<!-- 生成实体类 指定 package -->
+		<javaModelGenerator targetPackage="${targetEntityBase}"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimString" value="true" />
+		</javaModelGenerator>
+		<!-- 生成SQL Map config -->
+		<sqlMapGenerator targetPackage="mybatis"
+			targetProject="src/main/resources">
+			<!--<property name="enableSubPackages" value="true"/> -->
+		</sqlMapGenerator>
+		<!-- 生成Dao文件 可以配置 type="XMLMAPPER"生成xml的dao实现 -->
+		<javaClientGenerator targetPackage="${tagetMapperBase}"
+			type="XMLMAPPER" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="mergeable" value="true" />
+		</javaClientGenerator>
+
+		<!-- 需要生成哪些表， <table tableName="sys" domainObjectName="" enableCountByExample="false" 
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			selectByExampleQueryId="false" /> -->
+
+		<!-- <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS 
+			id " identity="true"/> -->
+
+		<!-- <table tableName="maintenance" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table> -->
+		
+	<!-- 	<table tableName="user" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table> -->
+		
+		<!-- <table tableName="user_memeber_info" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table> -->
+<!-- 		<table tableName="user_search" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="order_info" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="order_refund" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="order_workflow" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="goods_info" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="goods_collection" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="goods_category" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table> -->
+		<!-- <table tableName="article_label" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="order_log" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+		<table tableName="sys_user_role" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table> -->
+		<table tableName="coupon" enableCountByExample="${enabledExample}"
+			enableUpdateByExample="${enabledExample}" enableDeleteByExample="${enabledExample}"
+			enableSelectByExample="${enabledExample}" selectByExampleQueryId="${enabledExample}">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id "
+				identity="true" />
+		</table>
+	</context>
+</generatorConfiguration>

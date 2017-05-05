@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>top</title>
+<link href="../css/reset.css" rel="stylesheet" />
+<link href="../css/top.css" rel="stylesheet" />
+<link href="../css/public.css" rel="stylesheet" />
+<script src="../js/jquery-2.1.4.js"></script>
+
+</head>
+
+<body style="overflow: hidden; overflow-x:auto;">
+<div class="content clear">
+	<div>
+		<p><span>  您好！</span><span th:text="${username}"></span></p>
+    </div>
+   <!--  <ul class="right">
+    	<li class="user-info">
+    		<div>
+    			<a th:href="@{/user/logout} + ${userId}">退出</a>
+    			<p><span th:text="${username}"></span><span>  您好！</span></p>
+    		</div>
+    	</li>
+        <li class="time">
+        	<p>
+            	<span id="date" class="date">2016-01-29</span>
+            	<span id="day" class="day">星期二</span>
+            </p>
+            <p>
+            	<span id="hour">19:30:30</span>
+            </p>
+        </li>
+    </ul> -->
+</div>
+<script src="../js/getTime.js"></script>
+<script src="../js/page.js"></script>
+</body>
+</html>

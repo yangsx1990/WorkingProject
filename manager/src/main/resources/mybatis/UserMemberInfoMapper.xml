@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.mapper.UserMemberInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.entity.UserMemberInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+
+  <select id="selectUserMemberInfoList" parameterType="com.hiersun.oohdear.entity.vo.UserMemberInfoVo" resultMap="BaseResultMap">
+    select * from user_member_info where deleted = 0
+    <if test="mobile != null and mobile != ''">
+      AND mobile = #{mobile}
+    </if>
+    <if test="memberNo != null  and memberNo != ''">
+      AND member_no = #{memberNo}
+    </if>
+    <if test="nickName != null  and nickName != ''">
+      AND nick_name = #{nickName}
+    </if>
+    <if test="startTime != null  and startTime != ''">
+      AND DATE_FORMAT(created,'%Y-%m-%d') <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime != null  and endTime != ''">
+      AND DATE_FORMAT(created,'%Y-%m-%d') <![CDATA[<=]]> #{endTime}
+    </if>
+    <if test="sortPro != null and sortPro !=''">
+      ORDER BY ${sortPro}
+      <if test="sSortDir_0 !=null and sSortDir_0=='desc'">
+        desc
+      </if>
+    </if>
+  </select>
+</mapper>

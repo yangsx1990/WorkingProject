@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>首页</title>
+	<link href="../css/reset.css" rel="stylesheet" />
+	<link href="../css/public.css" rel="stylesheet" />
+	<link href="../css/index.css" rel="stylesheet" />
+	<script src="../js/jquery-2.1.4.js"></script>
+	<style>
+		.loading{
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+			background: rgba(0,0,0,0.5);
+			z-index: 1000;
+		}
+		.loading img{
+			width: 30px;
+			height: 30px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -15px;
+			margin-top: -15px;
+		}
+	</style>
+</head>
+
+<body style="overflow: auto;">
+<!--<div class="loading">
+	<img src="../imgs/loading.gif" alt="loading" />
+</div>-->
+<div class="wrap">
+<!-- 	<div class="head" style="margin-top: 10px;">
+    	<ul class="clear">
+        	<li class="message">
+        		<div class="pub-l">
+        			<img src="../imgs/iconfont-xiaoxixuanzhong.png" alt="" />
+        		</div>
+        		<div class="pub-r">
+        			<h3 class="h3-p-height">3</h3>
+        			<p class="h3-p-height">新消息</p>
+        		</div>
+        		<div class="opacity"></div>
+        		<a href="news.html" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;"></a>
+        	</li>
+        	<li class="count">
+        		<div class="pub-l">
+        			<img src="../imgs/iconfont-xinzengkehu.png" alt="" />
+        		</div>
+        		<div class="pub-r">
+        			<h3 class="h3-p-height">56789</h3>
+        			<p class="h3-p-height">昨日增新人数</p>
+        		</div>
+        		<div class="opacity"></div>
+        	</li>
+        	<li class="total" style="margin-right:0px;">
+        		<div class="pub-l">
+        			<img src="../imgs/iconfont-zongyonghushu.png" alt="" />
+        		</div>
+        		<div class="pub-r">
+        			<h3 class="h3-p-height">867563</h3>
+        			<p class="h3-p-height">总用户数</p>
+        		</div>
+        		<div class="opacity"></div>
+        	</li>
+        </ul>
+    </div> -->
+    <div class="body">
+    	<h3 class="sys-info">系统公告</h3>
+    			
+        <ul class="notice">
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        <!--	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>
+        	<li>
+            	<p class="message"><span>服务器维护通知：时间 2016年1月20日20:00:00<i>-</i>2016年1月20日20:00:00</span></p>
+                <p class="time">2016-01-12</p>
+            </li>-->
+        </ul>
+       <!--  <div class="to" style="position: relative;">
+        	<div class="to-page clear">
+        		<span class="cur-page">1</span>/<span class="total-page">5</span><button class="next-page">下一页</button><a class="goto" href="#">跳转</a>
+        	</div>
+        	<div class="to-detail">
+        		<span>跳转到第</span>
+        		<input type="text" value="" />
+        		<span style="margin-right: 5px;">页</span>
+        		<button class="ok">确定</button>
+        	</div>
+        </div> -->
+    </div>
+    <div class="footer"></div>
+</div>
+</body>
+</html>

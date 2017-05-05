@@ -1,0 +1,15 @@
+body,p,ul,ol,input,button,h1,h2,h3,h4,h5,h6,textarea,th,td{ margin:0; padding:0; color:#000; font-size: 14px; font-family:"微软雅黑";}
+li{ list-style:none; font-family:"微软雅黑";}
+em,b,i,strong,h1,h2,h3,h4,h5,h6{ font-style:normal; font-family:"微软雅黑"; font-weight: normal;}
+a{ outline:none; text-decoration:none; font-family:"微软雅黑";}
+img{ border:none; vertical-align:top;}
+input,button,textarea,em{ background: none; border:none; outline:none; overflow: hidden; resize: none; font-family:"微软雅黑";}
+button{
+	cursor: pointer;
+}
+/* 以下两句会让单元格间没有空白间隙 */
+table{border-collapse:collapse}
+th,td{border:1px solid black;}
+
+.clear:after{ content:""; display:block; clear:both;}
+.clear{ zoom:1;}

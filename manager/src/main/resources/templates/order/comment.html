@@ -1,0 +1,57 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel">备注</h4>
+</div>
+<div class="modal-body">
+	<form id="modalComment">
+		<div class="form-group">
+			<input type="hidden" name="id" th:value="${order.id}"/>
+			<input type="hidden" name="orderNo" th:value="${order.orderNo}"/>
+			<div class="form-group">
+				<select name="commentType" style="width: 100%">
+					<option value="1">订单信息备注（画作特殊要求、修改刻字信息）</option>
+					<option value="2">用户信息备注（修改收货相关信息）</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<textarea class="form-control" name="comment" rows="10"></textarea>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+	<button id="commentSave" type="button" class="btn btn-primary">保存</button>
+</div>
+<script>
+	$('#commentSave').click(function() {
+		$.ajax({
+			type:"POST",
+			url:"/order/comment",
+			data:$('#modalComment').serialize(),
+			success:function(result){
+				console.log(result);
+				$('#modalComment')[0].reset();
+				$('#comment').modal('hide')
+				if(result){
+					$('#alertText').text('操作成功');
+					$('#alert').attr('class','alert alert-success').show();
+					setTimeout("$('#alert').hide()",2000);
+					oTable1.fnDraw();
+				}else{
+					$('#alertText').text('操作失败');
+					$('#alert').attr('class','alert alert-danger').show();
+					setTimeout("$('#alert').hide()",2000);
+					oTable1.fnDraw();
+				}
+			}
+		})
+	});
+	//监听modal关闭事件，清除整个页面的缓存数据
+    $("#comment").on("hidden.bs.modal", function() {
+        $(this).removeData("bs.modal");
+    });
+</script>

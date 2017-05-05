@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.mapper.OrderLogMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.entity.OrderLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="operator_type" jdbcType="INTEGER" property="operatorType" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="comment_type" jdbcType="INTEGER" property="commentType" />
+  </resultMap>
+</mapper>

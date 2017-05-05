@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.mapper.OrderPaymentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.entity.OrderPaymentInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="payment" jdbcType="INTEGER" property="payment" />
+    <result column="payment_amount" jdbcType="DECIMAL" property="paymentAmount" />
+    <result column="serial_numbe" jdbcType="VARCHAR" property="serialNumbe" />
+    <result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
+    <result column="payer" jdbcType="VARCHAR" property="payer" />
+    <result column="payment_result" jdbcType="INTEGER" property="paymentResult" />
+    <result column="payment_failure_message" jdbcType="VARCHAR" property="paymentFailureMessage" />
+  </resultMap>
+</mapper>

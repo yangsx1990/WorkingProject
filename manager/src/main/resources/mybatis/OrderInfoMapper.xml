@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.mapper.OrderInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.entity.OrderInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="buyer_no" jdbcType="VARCHAR" property="buyerNo" />
+    <result column="order_price" jdbcType="DECIMAL" property="orderPrice" />
+    <result column="ship_address" jdbcType="VARCHAR" property="shipAddress" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="consignee_mobile" jdbcType="VARCHAR" property="consigneeMobile" />
+    <result column="pay_type" jdbcType="INTEGER" property="payType" />
+    <result column="goods_no" jdbcType="VARCHAR" property="goodsNo" />
+    <result column="lettering" jdbcType="VARCHAR" property="lettering" />
+    <result column="goods_style" jdbcType="VARCHAR" property="goodsStyle" />
+    <result column="goods_material" jdbcType="VARCHAR" property="goodsMaterial" />
+    <result column="goods_size" jdbcType="VARCHAR" property="goodsSize" />
+    <result column="credit_amount" jdbcType="DECIMAL" property="creditAmount" />
+    <result column="pay_amount" jdbcType="DECIMAL" property="payAmount" />
+    <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
+  </resultMap>
+  
+  <!-- 查询订单列表 -->
+  <select id="orderList" parameterType="com.hiersun.oohdear.entity.vo.OrderInfoVo" resultType="com.hiersun.oohdear.entity.vo.OrderInfoVo">
+	SELECT
+		o.id,
+		o.order_no AS orderNo,
+		o.buyer_no AS memberNo,
+		u.mobile,
+		o.created,
+		o.order_price AS price,
+		o.pay_amount AS payAmount,
+		o.order_status AS orderStatus
+	FROM
+		order_info AS o
+	LEFT JOIN user_member_info AS u ON u.member_no = o.buyer_no WHERE u.deleted=0
+	<if test="orderNo != null and orderNo != ''">
+		AND o.order_no=#{orderNo}
+	</if>
+	<if test="memberNo != null and memberNo != ''">
+		AND o.buyer_no=#{memberNo}
+	</if>
+	<if test="mobile != null and mobile != ''">
+		AND u.mobile=#{mobile}
+	</if>
+	<if test="orderStatus != null and orderStatus != ''">
+		<choose>
+			<when test="orderStatus == 1">
+				AND o.order_status IN(20,30,40,50,60,70,80,31)
+			</when>
+			<otherwise>
+				AND o.order_status=#{orderStatus}
+			</otherwise>
+		</choose>
+	</if>
+	<if test="startTime != null  and startTime != ''">
+      AND DATE_FORMAT(o.created,'%Y-%m-%d') <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime != null  and endTime != ''">
+      AND DATE_FORMAT(o.created,'%Y-%m-%d') <![CDATA[<=]]> #{endTime}
+    </if>
+    <if test="sortPro != null and sortPro !=''">
+      ORDER BY ${sortPro}
+      <if test="sSortDir_0 !=null and sSortDir_0=='desc'">
+        desc
+      </if>
+    </if>
+  </select>
+</mapper>

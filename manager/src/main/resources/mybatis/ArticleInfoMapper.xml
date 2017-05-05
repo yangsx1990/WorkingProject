@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.mapper.ArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.entity.ArticleInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="article_name" jdbcType="VARCHAR" property="articleName" />
+    <result column="article_desc" jdbcType="VARCHAR" property="articleDesc" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="delete_status" jdbcType="BIT" property="deleteStatus" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="label_id" jdbcType="INTEGER" property="labelId" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="top_status" jdbcType="INTEGER" property="topStatus" />
+    <result column="article_label" jdbcType="VARCHAR" property="articleLabel" />
+    <result column="article_info" typeHandler="com.hiersun.oohdear.util.MyBlobTypeHandler" property="articleInfo" />
+    <result column="number" jdbcType="INTEGER" property="number"/>
+    <result column="recommend_status" jdbcType="VARCHAR" property="recommendStatus"/>
+    <result column="nickname" jdbcType="VARCHAR" property="nickName"/>
+    <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+    <result column="article_interest" jdbcType="VARCHAR" property="articleInterest"/>
+    <result column="number" jdbcType="INTEGER" property="number" />
+  </resultMap>
+
+  <select id="getSubjectList" parameterType="com.hiersun.oohdear.entity.vo.ArticleInfoVo" resultMap="BaseResultMap">
+    SELECT * FROM article_info WHERE delete_status = false
+    <if test="articleName != null and articleName != ''">
+      AND article_name = #{articleName}
+    </if>
+    <if test="labelId != null  and labelId != ''">
+      AND label_id = #{labelId}
+    </if>
+    <if test="startTime != null  and startTime != ''">
+      AND DATE_FORMAT(created,'%Y-%m-%d') <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime != null  and endTime != ''">
+      AND DATE_FORMAT(created,'%Y-%m-%d') <![CDATA[<=]]> #{endTime}
+    </if>
+    GROUP BY id
+    <if test="sortPro != null and sortPro !=''">
+      ORDER BY ${sortPro}
+      <if test="sSortDir_0 !=null and sSortDir_0=='desc'">
+        desc
+      </if>
+    </if>
+  </select>
+
+  <select id="getArticleInfoById" parameterType="com.hiersun.oohdear.entity.ArticleInfo" resultMap="BaseResultMap">
+         SELECT id,article_name,article_desc,member_no,delete_status,created,label_id,picture,top_status,article_label,article_info,recommend_status,nickname,avatar,article_interest,number
+         FROM article_info
+         where id=#{id}
+  </select>
+
+  <select id="getArticleInfoByIds" resultMap="BaseResultMap">
+      select * from article_info where id in
+      <foreach item="item" index="articleIds" collection="list" open="(" separator="," close=")">
+         #{item}
+      </foreach>
+  </select>
+</mapper>

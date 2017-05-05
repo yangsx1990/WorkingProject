@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录</title>
+<link href="css/login.css" rel="stylesheet" />
+<link href="css/reset.css" rel="stylesheet" />
+<script src="js/jquery-2.1.4.js"></script>
+ <script src="js/rollups/aes.js"></script>  
+ <script src="js/components/mode-ecb.js"></script>  
+    <style>
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset;
+            -webkit-text-fill-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+<!-- <form>  -->
+<div class="wrap clear">
+
+    <div class="box">
+    	<h2>用户登录</h2>
+       	<div class="form" >
+
+        	<div class="phone">
+              <span></span>
+              <input id="username" class="user-name" type="text" placeholder="请输入用户名"  value=""/>
+              <i></i>
+            </div>
+        	<div class="password">
+              <span></span>
+              <input id="pwd" type="password" class="user-pw" placeholder="请输入密码" value=""/>
+            </div>
+
+        </div>
+        <button id="loginBtn" class="login" style="margin-top: 40px">登录</button>
+		 <div class="tips clear">
+            <p style="color: red;" th:text="${message}"></p>
+            <a id="unLogin" href="javascript:;">无法登录？</a>
+        </div>
+    </div>
+
+</div>
+<div class="opacity">
+	<div class="tips-box">
+		<!-- <p>请拨打客服电话“400-0110-999”</p> -->
+		<span></span>
+	    <button class="onOff">确定</button>
+    </div>
+</div>
+<!-- </form> -->
+<script>
+document.onkeydown=function(event){
+	e = event ? event : (window.event ? window.event : null);
+	if(e.keyCode==13){
+	//执行的方法
+		$('#loginBtn').click();
+	}
+}
+$("#loginBtn").click(function () {
+	console.log('进入btn click'); 
+	var name=$("#username").val();
+	var pwd=$("#pwd").val();
+	if(name.length==0){
+		alert("请输入用户名");
+		return flase;
+	}
+	if(pwd.length==0){
+		alert("请输入密码");
+		return flase;
+	}
+	name=name.trim();
+	var key =CryptoJS.enc.Utf8.parse("hengxinoohdearok");   
+    var srcs = CryptoJS.enc.Utf8.parse(pwd);  
+    var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+    //alert(encrypted.toString());  
+	 $.ajax({
+        type: "POST",
+        url: "/login",
+        data: {username:name,md5Pwd:encrypted.toString()},
+        success: function(data){
+              if(data=="success"){
+            	  window.location.href="/loginUrl";
+               }else{
+               		alert("用户名或密码有误，请重新登录");
+               		console.log('打印结束'); 
+               		return false;   
+               }   
+        },
+		error : function(err) {
+			alert(err);
+			return false;  
+		}
+    }); 
+});
+</script>
+</body>
+</html>

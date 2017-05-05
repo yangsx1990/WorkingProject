@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="fragments/head::header" />
+<body>
+<div th:include="fragments/top::top" ></div>
+
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+    </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+
+        <div th:include="fragments/left::left" ></div>
+
+        <div class="main-content">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">
+                    try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                </script>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="#">首页</a>
+                    </li>
+
+                    <li>
+                        <a href="/user/list">会员管理</a>
+                    </li>
+                    <li class="active">会员列表</li>
+                </ul><!-- .breadcrumb -->
+
+                <!--<div class="nav-search" id="nav-search">-->
+                    <!--<form class="form-search">-->
+								<!--<span class="input-icon">-->
+									<!--<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />-->
+									<!--<i class="icon-search nav-search-icon"></i>-->
+								<!--</span>-->
+                    <!--</form>-->
+                <!--</div>&lt;!&ndash; #nav-search &ndash;&gt;-->
+            </div>
+
+            <div class="page-content">
+                <!--<div class="page-header">-->
+                    <!--<h1>-->
+                        <!--Tables-->
+                        <!--<small>-->
+                            <!--<i class="icon-double-angle-right"></i>-->
+                            <!--Static &amp; Dynamic Tables-->
+                        <!--</small>-->
+                    <!--</h1>-->
+                <!--</div>&lt;!&ndash; /.page-header &ndash;&gt;-->
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3 class="header smaller lighter blue">会员管理</h3>
+                                <div class="table-header">
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <select class="form-control input-sm" id="select" style="width:100px;">
+                                                <option value="memberNo">会员ID</option>
+                                                <option value="mobile">手机号码</option>
+                                                <option value="nickName">昵称</option>
+                                            </select>
+                                            <input type="text" id="value" class="form-control input-sm" placeholder="" style="width:100px;"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail2">注册时间</label>
+                                            <input type="text" id="startTime" name="startTime"	class="datepicker" style="width:100px;"/>至<input type="text" id="endTime" name="endTime" class="datepicker" style="width:100px;"/>
+                                        </div>
+                                        <button type="button"  id="query" class="btn btn-success">查询</button>
+                                        <button type="reset" class="btn btn-warning">清空</button>
+                                        <a href="/user/excel" id="addArticle" class="btn btn-success pull-right">下载名单</a>
+                                    </form>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="center">
+                                                <label>
+                                                    <input type="checkbox" class="ace" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </th>
+                                            <th class="hide">id</th>
+                                            <th>会员ID</th>
+                                            <th>会员手机</th>
+                                            <th class="hidden-480">昵称</th>
+
+                                            <th>
+                                                <i class="icon-time bigger-110 hidden-480"></i>
+                                                注册日期
+                                            </th>
+                                            <th class="hidden-480">操作</th>
+
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+
+        <div th:include="fragments/bottom::bottom"></div>
+    </div>
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+
+<div th:include="fragments/js::js"></div>
+
+
+<!-- page specific plugin scripts -->
+
+<script th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/assets/js/jquery.dataTables.bootstrap.js}"></script>
+<script th:src="@{/assets/js/date-time/bootstrap-datepicker.min.js}" charset="UTF-8"></script>
+<script th:src="@{/assets/js/temp.js}" charset="UTF-8"></script>
+<script type="text/javascript">
+    <!--
+    jQuery(function($) {
+        var oTable1 = $('#sample-table-2').dataTable( {
+//            "bPaginate" : true,//使用分页
+            "bFilter": false,//是否使用搜索
+            "bProcessing": true,
+            "bDeferRender" : true,//
+            "sPaginationType": "bs_normal",//分页样式
+            "bRetrieve" : true,//是否调用后台
+            "bServerSide": true,//是否以后台分页
+            "sAjaxSource" : "/user/list",//请求路径
+            "fnServerData" : function(sSource, aoData, fnCallback) {
+                aoData.push(
+                    {"name":"memberNo","value":$("#select").val()=="memberNo"? $("#value").val():""},
+                    {"name":"mobile","value":$("#select").val()=="mobile"? $("#value").val():""},
+                    {"name":"nickName","value":$("#select").val()=="nickName"? $("#value").val():""},
+                    {"name":"startTime","value":$("#startTime").val()},
+                    {"name":"endTime","value":$("#endTime").val()}
+                )
+                $.ajax({
+                    "dataType" : 'json',
+                    "type" : "POST",
+                    "url" : sSource,
+                    "data" : aoData,
+                    "success" : fnCallback
+                });
+            },
+            "aaSorting": [[ 5, "desc" ]],
+            "aoColumns": [
+                { "sClass": "center","bSortable": false,"mData": function(source) {
+                    return '<td class="center"><label><input type="checkbox" class="ace" name="row_sel" value="'+source.id+'" /><span class="lbl"></span> </label></td>';
+                }},
+                { "sClass": "center","mData":"id","bVisible":false },//此列不显示
+                { "sClass": "center","bSortable": false,"mData":"memberNo" },
+                { "sClass": "center","bSortable": false,"mData":"mobile"},
+                { "sClass": "center","bSortable": false,"mData":"nickName"},
+                { "sClass": "center","bSortable": true,"mData":"created"},
+                { "sClass": "center","bSortable": false,"mData": function (source) {
+                    return '<a href="/user/detail?memberNo='+source.memberNo+'" class="tooltip-info" data-rel="tooltip" title="查看" > <span class="blue"> <i class="icon-zoom-in bigger-120"></i> </span> </a>'
+                }
+                }
+            ],
+            "oLanguage": {
+                "sLengthMenu": "每页 _MENU_条 ",
+                "sZeroRecords": "对不起，查询不到任何相关数据",
+                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录 ",
+                "sInfoEmpty": "显示 0 到 0 条，共 0 条记录",
+                "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
+                "sProcessing": "正在加载中...",
+                "sSearch": "搜索",
+                "sUrl": "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
+                "oPaginate": {
+                    "sFirst":    "第一页",
+                    "sPrevious": " 上一页 ",
+                    "sNext":     " 下一页 ",
+                    "sLast":     " 最后一页 "
+                }
+            } //多语言配置
+
+        } );
+
+        $(".datepicker").datepicker({
+            language: "cn",
+            autoclose: true,//选中之后自动隐藏日期选择框
+            clearBtn: true,//清除按钮
+            todayBtn: 1,//今日按钮
+            format: "yyyy-mm-dd"//日期格式，详见 http://bootstrap-datepicker.readthedocs.org/en/release/options.html#format
+        });
+
+        $('table th input:checkbox').on('click' , function(){
+            var that = this;
+            $(this).closest('table').find('tr > td:first-child input:checkbox')
+                .each(function(){
+                    this.checked = that.checked;
+                    $(this).closest('tr').toggleClass('selected');
+                });
+
+        });
+
+
+        $('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+        function tooltip_placement(context, source) {
+            var $source = $(source);
+            var $parent = $source.closest('table')
+            var off1 = $parent.offset();
+            var w1 = $parent.width();
+
+            var off2 = $source.offset();
+            var w2 = $source.width();
+
+            if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+            return 'left';
+        }
+
+
+        $("#query").click(function () {
+            oTable1.fnDraw();
+        })
+
+    })
+    -->
+</script>
+</body>
+</html>

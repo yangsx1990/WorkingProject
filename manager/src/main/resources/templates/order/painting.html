@@ -1,0 +1,84 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel">修改画作</h4>
+</div>
+<div class="modal-body">
+	<form id="modalComment" action="/order/painting" method="post">
+		<div class="row">
+			<input type="hidden" id="id" name="id" th:value="${order.id}" />
+			<input type="hidden" name="orderNo" th:value="${order.orderNo}" />
+			<input type="hidden" id="cover" name="cover" />
+			<div class="col-xs-6">
+				画作： <img
+				id="painting" style="width: 170px; height: 170px;" /> <input
+				id="file" name="file" type="file" />
+			</div>
+			<div class="col-xs-6">
+				<textarea class="" id="paintingComment" name="comment" rows="10" cols="22"
+				placeholder="备注"></textarea>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+	<button id="commentSave" type="button" class="btn btn-primary">提交</button>
+</div>
+<script>
+	$('#commentSave').click(function() {
+		if (confirm('提交修改画作将会覆盖原有画作，是否继续？')) {
+			$.ajax({
+				type:"POST",
+				url:"/order/painting",
+				data:$('#modalComment').serialize(),
+				success:function(result){
+					console.log(result);
+					$('#modalComment')[0].reset();
+					$('#comment').modal('hide')
+					if(result){
+						$('#alertText').text('操作成功');
+						$('#alert').attr('class','alert alert-success').show();
+						setTimeout("$('#alert').hide()",2000);
+						oTable1.fnDraw();
+					}else{
+						$('#alertText').text('操作失败');
+						$('#alert').attr('class','alert alert-danger').show();
+						setTimeout("$('#alert').hide()",2000);
+						oTable1.fnDraw();
+					}
+				}
+			});
+		}
+
+	});
+	$('#file').change(function() {
+		var oMyForm = new FormData();
+		var oImg = $('#file').get(0).files[0];
+		oMyForm.append('painting', oImg);
+		oMyForm.append('id', $('#id').val());
+		$.ajax({
+			type : 'POST',
+			url : '/order/upload/painting',
+			data : oMyForm,
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				if (data) {
+					$('#painting').attr("src",data);
+					$('#cover').val(data);
+				}
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+
+	});
+	//监听modal关闭事件，清除整个页面的缓存数据
+	$("#comment").on("hidden.bs.modal", function() {
+		$(this).removeData("bs.modal");
+	});
+</script>

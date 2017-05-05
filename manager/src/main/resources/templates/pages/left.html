@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>导航</title>
+	<link href="../css/reset.css" rel="stylesheet" />
+	<link href="../css/public.css" rel="stylesheet" />
+	<link href="../css/left.css" rel="stylesheet" />
+	<script src="../js/jquery-2.1.4.js"></script>
+</head>
+
+<body style="background:#007ab3;">
+<div class="wrap">
+	<ul>
+		<li>
+			<h2 style="font-size:20px; font-weight:bold; color:#fff; margin: 30px;">OD 管理系统</h2>
+			<h2 id="scence-list" data-btn = "false" style=" padding-left: 20px; font-size: 16px; color: #fff; line-height: 50px; "><span>-</span>运营管理</h2>
+		    <ul class="list">
+		        <li class="scence-list">
+		            <h2 data-btn = "false" data-num = "0"><a href="apply/index" target="showFrame"><span>-</span>内容管理</a></h2>
+		           
+		        </li>
+		        <li class="scence-list">
+		            <h2 data-btn = "true" data-num = "0"><a href="apply" target="showFrame"><span>-</span>评论管理</a></h2>
+		           
+		        </li>
+		        <li class="scence-list">
+		            <h2 data-btn = "true" data-num = "0"><a href="complete-scence-data.html" target="showFrame"><span>-</span>专题管理</a></h2>
+		           
+		        </li>
+		    </ul>
+	        <li class="QC-mange" style="border-bottom: 1px solid #5fb0d6; border-top: 0px solid #5fb0d6;">
+	        	 <h2><a href="code-mange.html" target="showFrame">订单管理</a></h2>
+	        </li>
+	        <li class="QC-mange" style="border-bottom: 1px solid #5fb0d6; border-top: 0px solid #5fb0d6;">
+	        	 <h2><a href="code-mange.html" target="showFrame">会员管理</a></h2>
+	        </li>
+		</li>
+	</ul>
+</div>
+
+<script>
+
+//点击景点列表收缩和展开
+$('#scence-list').click(function(){
+	//$('.info-list').slideUp();
+	//$(this).next('ul').slideDown();
+	$(this).next('ul').slideToggle();
+	
+	if($(this).attr('data-btn')=='true'){
+		$(this).attr('data-btn','false');
+		$('.QC-mange').css('border-top-width','0');
+		$(this).find('span').html('-');
+	}else if($(this).attr('data-btn')=='false'){
+		$(this).attr('data-btn','true');
+		$('.QC-mange').css('border-top-width','1px');
+		$(this).find('span').html('+');
+	}
+});
+
+$('.scence-list h2').click(function(){
+	//$('.info-list').slideUp();
+	//$(this).next('ul').slideDown();
+	$(this).next('ul').slideToggle();
+	
+	if($(this).attr('data-btn')=='true'){
+		$(this).find('span').html('-');
+		$(this).attr('data-btn','false');
+		$(this).css('border-width','0');
+	}else if($(this).attr('data-btn')=='false'){
+		$(this).find('span').html('-');
+		$(this).attr('data-btn','true');
+		$(this).css('border-width','1px');
+	}
+});
+
+//点击景区信息等
+$('.scence-info h3').click(function(){
+	$(this).next('ul').slideToggle();
+	
+	if($(this).attr('data-btn')=='true'){
+		$(this).find('span').html('-');
+		$(this).attr('data-btn','false');
+		$(this).css('border-width','0');
+	}else if($(this).attr('data-btn')=='false'){
+		$(this).find('span').html('-');
+		$(this).attr('data-btn','true');
+		$(this).css('border-width','1px');
+	}
+});
+
+//点击每个li的时候颜色的变化
+$('.list li').each(function(index,el){
+	var rgb=$(el).css('background-color');
+	$(el).attr('data-color',rgb);
+	
+	$(el).on('click',function(ev){
+		$('.list li').each(function(ind,ele){
+			$(ele).css('background-color',$(ele).attr('data-color'));
+		});
+		
+		$(this).css('background-color','rgba(0,87,127,1)');
+		ev.stopPropagation();
+	});
+});
+
+
+</script>
+</body>
+</html>

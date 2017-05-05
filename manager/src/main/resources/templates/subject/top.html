@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="myModalLabel">设置置顶</h4>
+</div>
+<form method="post" action="/subject/top" id="setTop">
+<div class="modal-body">
+    <table class="table">
+        <thead>
+
+        </thead>
+        <tbody>
+           <tr>
+               <th>标题</th>
+               <td th:text="${subject.title}"></td>
+           </tr>
+           <tr>
+               <th>置顶值</th>
+               <td th:text="${subject.topValue==null? 0:subject.topValue}"></td>
+           </tr>
+           <tr>
+               <th>请设置新的置顶值</th>
+               <td>
+                   <input type="text" name="topValue" value=""/>
+                   <input type="hidden" name="id" th:value="${subject.id}"/>
+               </td>
+           </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">关闭弹窗</button>
+    <button type="button" class="btn btn-primary" id="button">保存设置</button>
+</div>
+</form>
+<script type="text/javascript">
+    <!--
+        $(function(){
+           $("#button").click(function(){
+               $.ajax({
+                   url:"/subject/top",
+                   type:"POST",
+                   data:$("#setTop").serialize(),
+                   success:function(data){
+                       if(data){
+                           $(".alert-success").text("操作成功").show();
+                           $('#alert').attr('class','alert alert-success').show();
+                           setTimeout("$('#alert').hide()",2000);
+                           $("#myModal").modal("hide");
+                           oTable1.fnDraw();
+                       }else{
+                           $('#alertText').text('操作失败');
+                           $('#alert').attr('class','alert alert-danger').show();
+                           setTimeout("$('#alert').hide()",2000);
+                           $("#myModal").modal("hide");
+                       }
+                   }
+               })
+           })
+
+            //监听modal关闭事件，清除整个页面的缓存数据
+            $("#myModal").on("hidden.bs.modal", function() {
+                $(this).removeData("bs.modal");
+            });
+        });
+
+        -->
+</script>

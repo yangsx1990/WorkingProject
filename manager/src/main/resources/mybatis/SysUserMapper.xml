@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.entity.SysUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+  </resultMap>
+  
+  <resultMap id="RoleMap" type="com.hiersun.oohdear.entity.SysRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="deleted" jdbcType="TIMESTAMP" property="deleted" />
+    <result column="delete_status" jdbcType="BIT" property="deleteStatus" />
+  </resultMap>
+
+  <select id="findRoles" parameterType="com.hiersun.oohdear.entity.SysUser" resultMap="RoleMap">
+      SELECT c.* FROM sys_user a,sys_user_role b,sys_role c
+      WHERE a.`id`=b.`user_id` AND b.`role_id`=c.`id` AND a.`deleted`=0 AND
+      b.`delete_status`=0 AND c.`delete_status`=0
+      AND a.`id`=#{id}
+  </select>
+
+  <select id="findPermissions" parameterType="com.hiersun.oohdear.entity.SysRole" resultType="java.lang.String">
+    SELECT c.per_url FROM sys_role a,sys_role_permission b,sys_permission c WHERE a.`id`=b.`role_id` AND b.`permission_id`=c.`id`
+    AND a.`delete_status`=0 AND b.`delete_status`=0 AND c.`delete_status`=0
+    AND a.`id`=#{id}
+  </select>
+</mapper>

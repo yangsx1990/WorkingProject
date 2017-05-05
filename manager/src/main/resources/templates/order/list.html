@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="fragments/head::header" />
+<body>
+	<div th:include="fragments/top::top"></div>
+
+	<div class="main-container" id="main-container">
+		<script type="text/javascript">
+			try {
+				ace.settings.check('main-container', 'fixed')
+			} catch (e) {
+			}
+		</script>
+
+		<div class="main-container-inner">
+			<a class="menu-toggler" id="menu-toggler" href="#"> <span
+				class="menu-text"></span>
+			</a>
+
+			<div th:include="fragments/left::left"></div>
+
+			<div class="main-content">
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try {
+							ace.settings.check('breadcrumbs', 'fixed')
+						} catch (e) {
+						}
+					</script>
+
+					<ul class="breadcrumb">
+						<li><i class="icon-home home-icon"></i> <a href="#">首页</a>
+						</li>
+
+						<li><a href="/order/list">订单管理</a></li>
+						<li class="active">订单列表</li>
+					</ul>
+					<!-- .breadcrumb -->
+
+					<!--<div class="nav-search" id="nav-search">-->
+					<!--<form class="form-search">-->
+					<!--<span class="input-icon">-->
+					<!--<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />-->
+					<!--<i class="icon-search nav-search-icon"></i>-->
+					<!--</span>-->
+					<!--</form>-->
+					<!--</div>&lt;!&ndash; #nav-search &ndash;&gt;-->
+				</div>
+
+				<div class="page-content">
+					<!--<div class="page-header">-->
+					<!--<h1>-->
+					<!--Tables-->
+					<!--<small>-->
+					<!--<i class="icon-double-angle-right"></i>-->
+					<!--Static &amp; Dynamic Tables-->
+					<!--</small>-->
+					<!--</h1>-->
+					<!--</div>&lt;!&ndash; /.page-header &ndash;&gt;-->
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+
+							<div class="row">
+								<div class="col-xs-12">
+									<h3 class="header smaller lighter blue">订单列表</h3>
+									<div class="table-header">
+										<form id="form" class="form-inline">
+											<div class="form-group">
+												<select class="form-control input-sm" id="select"
+													name="name" style="width: 100px;">
+													<option value="orderNo">订单编号</option>
+													<option value="memberNo">会员编号</option>
+													<option value="mobile">会员手机号</option>
+												</select> <input type="text" id="value" class="form-control input-sm"
+													placeholder="" style="width: 100px;" />
+											</div>
+											<div class="form-group">
+												<label for="startTime">下单时间</label> <input id="startTime"
+													type="text" name="startTime" class="datepicker"
+													style="width: 100px;" />至<input id="endTime" type="text"
+													name="endTime" class="datepicker" style="width: 100px;" />
+											</div>
+											<div class="form-group">
+												<label for="orderStatus">订单状态</label> <select
+													name="orderStatus" class="form-control input-sm"
+													id="orderStatus" style="width: 100px;">
+													<option value="">全部</option>
+													<option value="10">待付款</option>
+													<option value="20">待确认</option>
+													<option value="30">设计中</option>
+													<option value="40">待制作</option>
+													<option value="50">制作中</option>
+													<option value="60">待发货</option>
+													<option value="70">已发货</option>
+													<option value="80">已完成</option>
+													<option value="31">不可做</option>
+													<option value="41">待退款</option>
+													<option value="51">已退款</option>
+													<option value="21">已关闭</option>
+													<option th:if="${#strings.contains(roles,'operation') || #strings.contains(roles,'admin')}" value="1">有效订单</option>
+												</select>
+											</div>
+											<button id="query" type="button" class="btn btn-success">查询</button>
+											<button type="reset" class="btn btn-warning">清空</button>
+											<a href="/order/excel" id="addArticle" class="btn btn-success pull-right">下载订单</a>
+											<a href="/order/" id="addArticle" class="btn btn-success pull-right">批量完成</a>
+											<a href="/order/" id="addArticle" class="btn btn-success pull-right">批量下载</a>
+										</form>
+									</div>
+
+									<div class="table-responsive">
+										<div id="alert" class="alert alert-success" style="display: none;" role="alert">
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<span id="alertText"></span>
+										</div>
+										<table id="sample-table-2"
+											class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th class="hide">id</th>
+													<th class="center"><label> <input
+															type="checkbox" class="ace" /> <span class="lbl"></span>
+													</label></th>
+													<th>订单号</th>
+													<th>会员编号</th>
+													<th>会员手机号</th>
+													<th>下单时间</th>
+													<th>商品金额</th>
+													<th>实际支付金额</th>
+													<th>订单状态</th>
+													<th class="col-xs-2">操作</th>
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.page-content -->
+			</div>
+
+			<div th:include="fragments/bottom::bottom"></div>
+		</div>
+
+		<a href="#" id="btn-scroll-up"
+			class="btn-scroll-up btn btn-sm btn-inverse"> <i
+			class="icon-double-angle-up icon-only bigger-110"></i>
+		</a>
+
+
+	</div>
+	<!-- /.main-container -->
+	<!-- 上传文件表单 -->
+	<form id="designDiagramForm" action="upload" method="post" enctype="multipart/form-data" style="float:left;overflow:hidden;opacity: 0;width:0;height:0">
+		<input id="designDiagramId" name="id" type="hidden"/>
+		<input id="designDiagram" name="designDiagram" type="file" unselectable="on" value="上传设计图"/>
+	</form>
+	<!-- Modal备注 -->
+	<div class="modal fade" id="comment" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+
+	<div th:include="fragments/js::js"></div>
+
+	<!-- page specific plugin scripts -->
+
+	<script th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.dataTables.bootstrap.js}"></script>
+	<script th:src="@{/assets/js/date-time/bootstrap-datepicker.min.js}"
+		charset="UTF-8"></script>
+	<script th:src="@{/assets/js/temp.js}" charset="UTF-8"></script>
+
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+		var oTable1;
+		var roles = [[${roles}]];
+		jQuery(function($) {
+			oTable1 = $('#sample-table-2')
+					.dataTable(
+							{
+								"bPaginate" : true,
+								"bFilter" : false,
+								"bProcessing" : true,
+								"sPaginationType" : "bs_normal",
+								"bRetrieve" : true,//是否调用后台
+								"bProcessing" : true,
+								"bServerSide" : true,
+								"aoColumns" : [ {
+									"bSortable" : false
+								}, null, null, null, null, null, {
+									"bSortable" : false
+								} ],
+								"sAjaxSource" : "list",
+								"fnServerData" : function(sSource, aoData,
+										fnCallback) {
+									aoData
+											.push(
+													{
+														"name" : "orderNo",
+														"value" : $("#select")
+																.val() == "orderNo" ? $(
+																"#value").val()
+																: ""
+													},
+													{
+														"name" : "memberNo",
+														"value" : $("#select")
+																.val() == "memberNo" ? $(
+																"#value").val()
+																: ""
+													},
+													{
+														"name" : "mobile",
+														"value" : $("#select")
+																.val() == "mobile" ? $(
+																"#value").val()
+																: ""
+													}, {
+														"name" : "startTime",
+														"value" : $(
+																"#startTime")
+																.val()
+													}, {
+														"name" : "endTime",
+														"value" : $("#endTime")
+																.val()
+													}, {
+														"name" : "orderStatus",
+														"value" : $(
+																"#orderStatus")
+																.val()
+													})
+									$.ajax({
+										"dataType" : 'json',
+										"type" : "POST",
+										"url" : sSource,
+										"data" : aoData,
+										"success" : fnCallback
+									});
+								},
+								"aaSorting": [[ 5, "desc" ]],
+								"aoColumns" : [
+										{
+											"sClass" : "center",
+											"bVisible" : false,
+											"mData" : "id"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : false,
+											"mData" : function(source) {
+												return '<td class="center"><label><input type="checkbox" class="ace" name="row_sel" value="'+source.orderNo+'" /><span class="lbl"></span> </label></td>';
+											}
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : false,
+											"mData" : "orderNo"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : false,
+											"mData" : "memberNo"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : false,
+											"mData" : "mobile"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : true,
+											"mData" : "created"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : true,
+											"mData" : "price"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : true,
+											"mData" : "payAmount"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : false,
+											"mData" : "orderStatusName"
+										},
+										{
+											"sClass" : "center",
+											"bSortable" : false,
+											"mData" : function(source) {
+												var html = '<a href="detail.html?orderNo='+source.orderNo+ '">查看详情</a>';
+												if(source.orderStatus!=70 && source.orderStatus!=80 && (roles.indexOf('admin')!=-1 || roles.indexOf('services')!=-1)){
+													html += ' <a data-toggle="modal" data-target="#comment" href="comment.html?id=' + source.id + '&orderNo='+source.orderNo+ '">备注</a>';
+												}
+												if((source.orderStatus==20 || source.orderStatus==31)&& (roles.indexOf('admin')!=-1 || roles.indexOf('services')!=-1)){
+													html += ' <a data-toggle="modal" data-target="#comment" href="painting.html?id=' + source.id + '&orderNo='+source.orderNo+ '">修改画作</a>';
+												}
+												if(source.orderStatus==20 && (roles.indexOf('admin')!=-1 || roles.indexOf('designer')!=-1)){
+													html += ' <a data-toggle="modal" data-target="#comment" href="assess.html?id=' + source.id + '&orderNo='+source.orderNo+ '">设计评估</a>';
+												}
+												if((source.orderStatus==30 || source.orderStatus==40)&& (roles.indexOf('admin')!=-1 || roles.indexOf('designer')!=-1)){
+													html += ' <a data="'+source.id+'" class="upload" href="javascript:void(0);">上传设计图</a>';
+												}
+												if(source.orderStatus==40 && (roles.indexOf('admin')!=-1 || roles.indexOf('production')!=-1)){
+													html += ' <a class="download" href="download.html?id=' + source.id + '&orderNo='+source.orderNo+ '">下载设计图</a>';
+												}
+												if(source.orderStatus==50 && (roles.indexOf('admin')!=-1 || roles.indexOf('production')!=-1)){
+													html += ' <a data-toggle="modal" data-target="#comment" href="finished.html?id=' + source.id + '&orderNo='+source.orderNo+ '">制作完成</a>';
+												}
+												if(source.orderStatus==60 && (roles.indexOf('admin')!=-1 || roles.indexOf('production')!=-1)){
+													html += ' <a data-toggle="modal" data-target="#comment" href="shipped.html?id=' + source.id + '&orderNo='+source.orderNo+ '">发货</a>';
+												}
+												if(source.orderStatus==41 && (roles.indexOf('admin')!=-1 || roles.indexOf('operation')!=-1)){
+													html += ' <a data-toggle="modal" data-target="#comment" href="refund.html?id=' + source.id + '&orderNo='+source.orderNo+ '">退款</a>';
+												}
+												return html;
+											}
+										} ],
+								"oLanguage" : {
+									"sLengthMenu" : "每页 _MENU_条 ",
+									"sZeroRecords" : "对不起，查询不到任何相关数据",
+									"sInfo" : "显示第_START_ 到第 _END_ ，筛选之后得到 _TOTAL_ 条，初始_MAX_ 条 ",
+									"sInfoEmpty" : "显示 0 到 0 条，共 0 条记录",
+									"sInfoFiltered" : "数据表中共为 _MAX_ 条记录)",
+									"sProcessing" : "正在加载中...",
+									"sSearch" : "搜索",
+									"sUrl" : "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
+									"oPaginate" : {
+										"sFirst" : "第一页",
+										"sPrevious" : " 上一页 ",
+										"sNext" : " 下一页 ",
+										"sLast" : " 最后一页 "
+									}
+								}
+							//多语言配置
+
+							});
+
+			$(".datepicker").datepicker({
+				language : "cn",
+				autoclose : true,//选中之后自动隐藏日期选择框
+				clearBtn : true,//清除按钮
+				todayBtn : 1,//今日按钮
+				format : "yyyy-mm-dd"//日期格式，详见 http://bootstrap-datepicker.readthedocs.org/en/release/options.html#format
+			});
+
+			$('table th input:checkbox').on(
+					'click',
+					function() {
+						var that = this;
+						$(this).closest('table').find(
+								'tr > td:first-child input:checkbox').each(
+								function() {
+									this.checked = that.checked;
+									$(this).closest('tr').toggleClass(
+											'selected');
+								});
+
+					});
+
+			$('[data-rel="tooltip"]').tooltip({
+				placement : tooltip_placement
+			});
+			function tooltip_placement(context, source) {
+				var $source = $(source);
+				var $parent = $source.closest('table')
+				var off1 = $parent.offset();
+				var w1 = $parent.width();
+
+				var off2 = $source.offset();
+				var w2 = $source.width();
+
+				if (parseInt(off2.left) < parseInt(off1.left)
+						+ parseInt(w1 / 2))
+					return 'right';
+				return 'left';
+			}
+
+			$("#query").click(function() {
+				oTable1.fnDraw();
+			});
+			
+			$('#sample-table-2').on('click', '.upload', function(e) {
+				e.preventDefault();
+				console.log('upload');
+				$('#designDiagramId').val($(this).attr('data'));
+			    $('#designDiagram').trigger('click');
+			});
+			
+			$('#designDiagram').change(function(){
+				console.log($(this).val());
+				var oMyForm = new FormData();
+				var oImg = $(this).get(0).files[0];
+				oMyForm.append('designDiagram', oImg);
+				oMyForm.append('id', $('#designDiagramId').val());
+				$.ajax({
+					type : 'POST',
+					url : '/order/upload',
+					data : oMyForm,
+					processData : false,
+					contentType : false,
+					success : function(data) {
+						if (data) {
+							$('#alertText').text('上传设计图成功');
+							$('#alert').attr('class', 'alert alert-success').show();
+							setTimeout("$('#alert').hide()", 2000);
+							oTable1.fnDraw();
+						}else{
+							$('#alertText').text('上传设计图失败');
+							$('#alert').attr('class', 'alert alert-danger').show();
+							setTimeout("$('#alert').hide()", 2000);
+						}
+					},
+					error : function(err) {
+						console.log(err);
+					}
+				});
+			});
+			
+			$('#sample-table-2').on('mouseup', '.download', function(e) {
+				setTimeout("oTable1.fnDraw()",1000);
+			});
+		});
+
+		/*]]>*/
+	</script>
+</body>
+</html>

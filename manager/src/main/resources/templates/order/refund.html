@@ -1,0 +1,55 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel">退款</h4>
+</div>
+<div class="modal-body">
+	<form id="modalComment">
+		<div class="form-group">
+			<input type="hidden" name="id" th:value="${order.id}" /> <input
+				type="hidden" name="orderNo" th:value="${order.orderNo}" />
+			<div>确认退款后订单状态将变更为已完成</div>
+			<div>请确认已成功退款</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+	<button id="commentSave" type="button" class="btn btn-primary">确定</button>
+</div>
+<script>
+	$('#commentSave').click(function() {
+		$.ajax({
+			type : "POST",
+			url : "/order/refund",
+			data : $('#modalComment').serialize(),
+			success : function(result) {
+				console.log(result);
+				$('#modalComment')[0].reset();
+				$('#comment').modal('hide')
+				if (result == 'success') {
+					$('#alertText').text('退款成功');
+					$('#alert').attr('class', 'alert alert-success').show();
+					setTimeout("$('#alert').hide()", 2000);
+					oTable1.fnDraw();
+				} else if (result == 'failed') {
+					$('#alertText').text('退款失败');
+					$('#alert').attr('class', 'alert alert-danger').show();
+					setTimeout("$('#alert').hide()", 2000);
+					oTable1.fnDraw();
+				} else {
+					$('#alertText').text('退款失败，' + result);
+					$('#alert').attr('class', 'alert alert-danger').show();
+					setTimeout("$('#alert').hide()", 5000);
+					oTable1.fnDraw();
+				}
+			}
+		})
+	});
+	//监听modal关闭事件，清除整个页面的缓存数据
+	$("#comment").on("hidden.bs.modal", function() {
+		$(this).removeData("bs.modal");
+	});
+</script>
