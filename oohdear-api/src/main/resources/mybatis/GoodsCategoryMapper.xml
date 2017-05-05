@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.article.mapper.GoodsCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.article.entity.GoodsCategory">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_code" jdbcType="VARCHAR" property="categoryCode" />
+    <result column="delete_status" jdbcType="BIT" property="deleteStatus" />
+    <result column="use_status" jdbcType="BIT" property="useStatus" />
+  </resultMap>
+</mapper>

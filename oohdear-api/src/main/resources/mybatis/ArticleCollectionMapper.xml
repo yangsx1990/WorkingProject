@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.article.mapper.ArticleCollectionMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.article.entity.ArticleCollection">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="articleId" jdbcType="INTEGER" property="articleid" />
+    <result column="deleted_status" jdbcType="BIT" property="deletedStatus" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+  </resultMap>
+    <select id="isSign" parameterType="map" resultType="int">
+        select count(1) from  article_collection where member_no=#{memberNo} and articleId=#{articleId} and deleted_status=0
+    </select>
+</mapper>

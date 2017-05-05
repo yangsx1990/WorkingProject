@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hiersun.oohdear.order.mapper.SysExpressDictMapper" >
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.order.entity.SysExpressDict" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="initial" property="initial" jdbcType="CHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

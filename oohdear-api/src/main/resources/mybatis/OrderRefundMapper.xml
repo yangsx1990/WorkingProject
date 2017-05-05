@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.order.mapper.OrderRefundMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.order.entity.OrderRefund">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+</mapper>

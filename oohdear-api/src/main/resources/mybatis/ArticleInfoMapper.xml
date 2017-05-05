@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.article.mapper.ArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.article.entity.ArticleInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="article_name" jdbcType="VARCHAR" property="articleName" />
+    <result column="article_desc" jdbcType="VARCHAR" property="articleDesc" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="delete_status" jdbcType="BIT" property="deleteStatus" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="label_id" jdbcType="INTEGER" property="labelId" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="top_status" jdbcType="INTEGER" property="topStatus" />
+    <result column="article_label" jdbcType="VARCHAR" property="articleLabel" />
+    <result column="article_info" typeHandler="com.hiersun.oohdear.util.MyBlobTypeHandler" property="articleInfo" />
+    <result column="recommend_status" jdbcType="VARCHAR" property="recommendStatus"/>
+    <result column="nickname" jdbcType="VARCHAR" property="nickName"/>
+    <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+    <result column="article_interest" jdbcType="VARCHAR" property="articleInterest"/>
+    <result column="number" jdbcType="INTEGER" property="number" />
+  </resultMap>
+
+  <select id="getArticleInfoById" parameterType="com.hiersun.oohdear.article.entity.ArticleInfo" resultMap="BaseResultMap">
+    SELECT id,article_name,article_desc,member_no,delete_status,created,label_id,picture,top_status,article_label,article_info,recommend_status,nickname,avatar,article_interest
+    FROM article_info
+    where id=#{id}
+  </select>
+  <select id="getArticleTitle" parameterType="java.lang.Long" resultType="string">
+  	SELECT article_name    FROM article_info    where id=#{id}
+  </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.user.mapper.UserMemberAddressMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.user.entity.UserMemberAddress">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="zone" jdbcType="VARCHAR" property="zone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="default_address" jdbcType="BIT" property="defaultAddress" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="consignee_mobile" jdbcType="VARCHAR" property="consigneeMobile" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+    <update id="updateAddressByNo" parameterType="com.hiersun.oohdear.user.entity.UserMemberAddress">
+  update user_member_address set consignee=#{consignee},consignee_mobile=#{consigneeMobile},
+  address=#{address},default_address=#{defaultAddress},zone=#{zone} where id=#{id}
+  </update>
+</mapper>

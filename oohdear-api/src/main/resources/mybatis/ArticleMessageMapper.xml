@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.article.mapper.ArticleMessageMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.article.entity.ArticleMessage">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="articleId" jdbcType="INTEGER" property="articleid" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+  </resultMap>
+    <select id="queryMessageByarticleAndmemberNo" parameterType="com.hiersun.oohdear.article.entity.ArticleMessage" resultType="int">
+      SELECT count(1) FROM  article_message where articleId = #{articleid} and  deleted=1
+    </select>
+</mapper>

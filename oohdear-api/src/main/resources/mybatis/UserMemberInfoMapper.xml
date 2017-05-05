@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.user.mapper.UserMemberInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.user.entity.UserMemberInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+     <result column="real_name" jdbcType="VARCHAR" property="realName" />
+  </resultMap>
+  <update id="updateInfoByMemberNo" parameterType="map">
+  		update 
+  			user_member_info
+  	    SET
+  	    	last_modified=#{date} 
+  	    <if test="avatar!=null" >
+  	    	,avatar=#{avatar}
+  	    </if>
+  	     <if test="nickname!=null">
+  	    	,nick_name=#{nickname}
+  	    </if>
+  	     <if test="gender!=null" >
+  	    	,gender=#{gender}
+  	    </if>   	  
+  	    where 
+  	    	member_no=#{memberNo} and deleted=0
+  	</update>
+</mapper>

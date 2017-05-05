@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hiersun.oohdear.order.mapper.OrderMoneyMapper">
+  <resultMap id="BaseResultMap" type="com.hiersun.oohdear.order.entity.OrderMoney">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="style" jdbcType="VARCHAR" property="style" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+  </resultMap>
+   <select id="getFuzzyOrderMoney" parameterType="com.hiersun.oohdear.order.entity.OrderMoney" resultType="map">
+  	SELECT 
+  		min(money) as min,max(money) as max  
+  	from 
+  		order_money 
+  	where 1=1
+  	<if test="material!=null">
+  		and material=#{material}
+  	</if>
+  	<if test="size!=null">
+  	and size=#{size}
+  	</if>
+  	<if test="style!=null">
+  		and  style=#{style}
+  	</if>
+  </select>
+</mapper>
