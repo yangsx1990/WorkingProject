@@ -1,0 +1,77 @@
+/**
+	 * 
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @throws MaHuaServiceHandleException
+	 */
+	 @RequestMapping("/code")  
+	    public void getQRCode(ModelMap model,HttpServletRequest request,  
+	                          HttpServletResponse response){  
+	        String url = request.getParameter("url");  
+	        //二维码图片输出流  
+	        OutputStream out = null;  
+	        try{  
+	            response.setContentType("image/jpeg;charset=UTF-8");  
+	            BufferedImage image = null;  
+	            //二维码图片输出流  
+	            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();  
+	            Map hints = new HashMap();  
+	            // 设置编码方式  
+	            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");  
+	            // 设置QR二维码的纠错级别（H为最高级别）具体级别信息  
+	            BitMatrix bitMatrix = multiFormatWriter.encode("http://www.cnblogs.com/saixing", BarcodeFormat.QR_CODE, 400, 400,hints);
+	            //File file=new File("C://Users//yangsaixing//Desktop//tao.png");
+	           // Image img=ImageIO.read(file)
+	           /* File file=new File(new URI("http://www.oohdear.com/init/_20170329151330579.jpg"));
+	            MatrixToImageWriter.writeToFile(bitMatrix, "jpeg",file);  */
+	            bitMatrix = updateBit(bitMatrix,10);  
+	            image = MatrixToImageWriter.toBufferedImage(bitMatrix);  
+	            //实例化输出流对象  
+	            out = response.getOutputStream();  
+	            //画图  
+	            ImageIO.write(image, "png", response.getOutputStream());  
+	            out.flush();  
+	            out.close();  
+	        }catch (Exception e){  
+	            logger.error("生成二维码出现异常"+e.getMessage());  
+	            e.printStackTrace();  
+	        }finally {  
+	            try{  
+	                if (null != response.getOutputStream()) {  
+	                    response.getOutputStream().close();  
+	                }  
+	                if (null != out) {  
+	                    out.close();  
+	                }  
+	            }catch(Exception e){  
+	                e.printStackTrace();  
+	            }  
+	        }  
+	  
+	    }  
+	 
+	 private static BitMatrix updateBit(final BitMatrix matrix, final int margin) {  
+	        int tempM = margin * 2;  
+	        //获取二维码图案的属性  
+	        int[] rec = matrix.getEnclosingRectangle();  
+	        int resWidth = rec[2] + tempM;  
+	        int resHeight = rec[3] + tempM;  
+	        // 按照自定义边框生成新的BitMatrix  
+	        BitMatrix resMatrix = new BitMatrix(resWidth, resHeight);  
+	        resMatrix.clear();  
+	        //循环，将二维码图案绘制到新的bitMatrix中  
+	        for (int i = margin; i < resWidth - margin; i++) {  
+	            for (int j = margin; j < resHeight - margin; j++) {  
+	                if (matrix.get(i - margin + rec[0], j - margin + rec[1])) {  
+	                    resMatrix.set(i, j);  
+	                }  
+	            }  
+	        }  
+	        return resMatrix;  
+	    }  
+	 
+	 public static void main(String[] args) {
+		File file=new File("http://www.oohdear.com/init/_20170329151330579.jpg");
+		System.out.println(file.toPath());
+	}
